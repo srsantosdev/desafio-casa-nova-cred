@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "HelloWorld",
-    "slug": "desafio-casa-nova-cred",
+    "name": "Casa Nova Cred",
+    "slug": "casa-nova-cred",
     "platforms": [
       "ios",
       "android",

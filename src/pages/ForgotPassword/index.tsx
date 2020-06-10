@@ -3,8 +3,8 @@ import { View } from "react-native";
 
 // import { Container } from './styles';
 
-const Home: React.FC = () => {
+const ForgotPassword: React.FC = () => {
   return <View />;
 };
 
-export default Home;
+export default ForgotPassword;

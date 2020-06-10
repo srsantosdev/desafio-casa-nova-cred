@@ -8,6 +8,7 @@ import Requests from "./../pages/Requests";
 import Details from "./../pages/Details";
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const HomeRouter: React.FC = () => {
   return (
@@ -27,8 +28,6 @@ const RequestsRouter: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const Drawer = createDrawerNavigator();
-
   return (
     <Drawer.Navigator>
       <Drawer.Screen name="Home" component={HomeRouter} />

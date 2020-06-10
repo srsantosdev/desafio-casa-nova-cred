@@ -3,15 +3,13 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Login from "./../pages/Login";
 
-const AuthRoutes: React.FC = () => {
-  const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 
+const AuthRoutes: React.FC = () => {
   return (
-    <>
-      <Stack.Navigator headerMode="none">
-        <Stack.Screen name="Login" component={Login} />
-      </Stack.Navigator>
-    </>
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen name="Login" component={Login} />
+    </Stack.Navigator>
   );
 };
 

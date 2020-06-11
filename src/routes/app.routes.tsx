@@ -81,7 +81,7 @@ const HomeRouter: React.FC = () => {
 
 const RequestsRouter: React.FC = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator headerMode="none">
       <Stack.Screen name="Requests" component={Requests} />
       <Stack.Screen name="Details" component={Details} />
     </Stack.Navigator>

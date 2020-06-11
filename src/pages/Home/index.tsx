@@ -1,5 +1,6 @@
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation, DrawerActions } from "@react-navigation/native";
 
 import {
   Container,
@@ -21,12 +22,16 @@ import {
 } from "./styles";
 
 const Home: React.FC = () => {
+  const navigation = useNavigation();
+
   return (
     <Container>
       <Header>
         <Invisible />
         <TitlePage>Olá, Maria!</TitlePage>
-        <OptionButton>
+        <OptionButton
+          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+        >
           <Ionicons name="ios-menu" size={35} color="#fff" />
         </OptionButton>
       </Header>

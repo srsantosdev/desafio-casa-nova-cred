@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   Container,
   BackgroundImage,
@@ -22,6 +23,7 @@ import {
 } from "./styles";
 
 const Login: React.FC = () => {
+  const navigation = useNavigation();
   const [page, setPage] = useState<string>("LOGIN");
 
   return (
@@ -83,7 +85,7 @@ const Login: React.FC = () => {
                 </ForgotPassword>
               </Box>
 
-              <SubmitButton>
+              <SubmitButton onPress={() => navigation.navigate("App")}>
                 <SubmitText>Entrar</SubmitText>
               </SubmitButton>
             </>

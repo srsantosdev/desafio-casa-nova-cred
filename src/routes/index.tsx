@@ -1,19 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 
-import AuthRoutes from "./auth.routes";
+import AuthContext, { AuthProvider } from "./../contexts/auth";
+
 import AppRoutes from "./app.routes";
-
-const Stack = createStackNavigator();
+import AuthRoutes from "./auth.routes";
 
 const Routes = () => {
+  const { signed } = useContext(AuthContext);
+
   return (
     <NavigationContainer>
-      <Stack.Navigator headerMode="none">
-        <Stack.Screen name="App" component={AppRoutes} />
-        <Stack.Screen name="Auth" component={AuthRoutes} />
-      </Stack.Navigator>
+      <AuthProvider>{signed ? <AppRoutes /> : <AuthRoutes />}</AuthProvider>
     </NavigationContainer>
   );
 };

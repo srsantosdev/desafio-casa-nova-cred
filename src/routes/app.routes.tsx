@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { useNavigation, DrawerActions } from "@react-navigation/native";
 import {
@@ -15,6 +15,8 @@ import {
 } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import AuthContext from "./../contexts/auth";
+
 import Home from "./../pages/Home";
 
 import Requests from "./../pages/Requests";
@@ -25,6 +27,8 @@ const Drawer = createDrawerNavigator();
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
   const navigation = useNavigation();
+  const { signOut } = useContext(AuthContext);
+
   return (
     <DrawerContentScrollView {...props}>
       <View
@@ -65,7 +69,7 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
           />
         )}
         label="Sair"
-        onPress={() => {}}
+        onPress={() => signOut()}
       />
     </DrawerContentScrollView>
   );

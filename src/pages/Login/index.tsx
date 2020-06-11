@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
   Container,
@@ -22,9 +22,17 @@ import {
   Box,
 } from "./styles";
 
+import AuthContext from "./../../contexts/auth";
+
 const Login: React.FC = () => {
   const navigation = useNavigation();
   const [page, setPage] = useState<string>("LOGIN");
+
+  const { signIn } = useContext(AuthContext);
+
+  function handleSignIn() {
+    signIn();
+  }
 
   return (
     <Container>
@@ -85,7 +93,7 @@ const Login: React.FC = () => {
                 </ForgotPassword>
               </Box>
 
-              <SubmitButton onPress={() => navigation.navigate("App")}>
+              <SubmitButton onPress={handleSignIn}>
                 <SubmitText>Entrar</SubmitText>
               </SubmitButton>
             </>

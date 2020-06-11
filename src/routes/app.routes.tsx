@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { View, TouchableOpacity } from "react-native";
-import { useNavigation, DrawerActions } from "@react-navigation/native";
+import { DrawerActions } from "@react-navigation/native";
 import {
   MaterialCommunityIcons,
   MaterialIcons,
@@ -26,7 +26,6 @@ const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
-  const navigation = useNavigation();
   const { signOut } = useContext(AuthContext);
 
   return (
@@ -35,7 +34,7 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
         style={{ alignItems: "flex-end", paddingRight: 20, marginBottom: 10 }}
       >
         <TouchableOpacity
-          onPress={() => navigation.dispatch(DrawerActions.closeDrawer())}
+          onPress={() => props.navigation.dispatch(DrawerActions.closeDrawer())}
         >
           <Ionicons name="ios-close" size={35} color="black" />
         </TouchableOpacity>

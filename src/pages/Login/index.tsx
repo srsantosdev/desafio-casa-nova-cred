@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { useNavigation } from "@react-navigation/native";
 import {
   Container,
   BackgroundImage,
@@ -25,13 +24,18 @@ import {
 import AuthContext from "./../../contexts/auth";
 
 const Login: React.FC = () => {
-  const navigation = useNavigation();
   const [page, setPage] = useState<string>("LOGIN");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const { signIn } = useContext(AuthContext);
 
   function handleSignIn() {
-    signIn();
+    const credentials = {
+      username: email,
+      password,
+    };
+    signIn(credentials);
   }
 
   return (
@@ -83,9 +87,21 @@ const Login: React.FC = () => {
             </>
           ) : (
             <>
-              <Input placeholder="E-mail" placeholderTextColor="#707070C6" />
+              <Input
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="email-address"
+                placeholder="E-mail"
+                placeholderTextColor="#707070C6"
+                onChangeText={(text) => setEmail(text)}
+              />
 
-              <Input placeholder="Senha" placeholderTextColor="#707070C6" />
+              <Input
+                placeholder="Senha"
+                placeholderTextColor="#707070C6"
+                secureTextEntry
+                onChangeText={(text) => setPassword(text)}
+              />
 
               <Box>
                 <ForgotPassword>

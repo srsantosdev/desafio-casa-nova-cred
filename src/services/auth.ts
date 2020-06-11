@@ -1,14 +1,14 @@
-interface Response {
-  token: string;
-  user: object;
-}
+import { gql } from "apollo-boost";
 
-export const signIn = (): Promise<Response> =>
-  new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        token: "ihdfweohfuwehfuwehifwhefywhefiwyefwiyefwe",
-        user: {},
-      });
-    }, 2000);
-  });
+export const request = gql`
+  mutation obterToken($username: String!, $password: String!) {
+    obterToken(username: $username, password: $password) {
+      token
+      funcionario {
+        id
+        nome
+        email
+      }
+    }
+  }
+`;

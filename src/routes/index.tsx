@@ -1,19 +1,14 @@
-import React, { useContext } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
 
-import AuthContext, { AuthProvider } from "./../contexts/auth";
+import { useAuth } from "./../contexts/auth";
 
 import AppRoutes from "./app.routes";
 import AuthRoutes from "./auth.routes";
 
-const Routes = () => {
-  const { signed } = useContext(AuthContext);
+const Routes: React.FC = () => {
+  const { signed } = useAuth();
 
-  return (
-    <NavigationContainer>
-      <AuthProvider>{signed ? <AppRoutes /> : <AuthRoutes />}</AuthProvider>
-    </NavigationContainer>
-  );
+  return signed ? <AppRoutes /> : <AuthRoutes />;
 };
 
 export default Routes;

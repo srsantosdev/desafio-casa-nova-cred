@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useQuery, QueryHookOptions } from "@apollo/react-hooks";
 import {
   Container,
   Header,
@@ -16,8 +17,12 @@ import {
   Go,
 } from "./styles";
 
+import { allLoanRequests } from "./../../services/queries";
+
 const Requests: React.FC = () => {
   const navigation = useNavigation();
+  const [request, setRequest] = useState();
+  const { data } = useQuery<QueryHookOptions>(allLoanRequests);
 
   return (
     <Container>

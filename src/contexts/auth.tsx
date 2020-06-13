@@ -58,23 +58,26 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   async function signIn({ username, password }: Credentials) {
-    const { data } = (await mutate({
-      variables: { username, password },
-    })) as MutationResponse;
+    if (username && password) {
+      const { data } = (await mutate({
+        variables: { username, password },
+      })) as MutationResponse;
 
-    const user = {
-      nome: data.obterToken.funcionario.nome,
-      email: data.obterToken.funcionario.email,
-      id: Number(data.obterToken.funcionario.id),
-    };
-    const token = data.obterToken.token;
+      const user = {
+        nome: data.obterToken.funcionario.nome,
+        email: data.obterToken.funcionario.email,
+        id: Number(data.obterToken.funcionario.id),
+      };
+      const token = data.obterToken.token;
 
-    if (token) {
-      setUser(user);
+      if (token) {
+        setUser(user);
 
-      await AsyncStorage.setItem("@RNAuth:user", JSON.stringify(user));
-      await AsyncStorage.setItem("@RNAuth:token", token);
+        await AsyncStorage.setItem("@RNAuth:user", JSON.stringify(user));
+        await AsyncStorage.setItem("@RNAuth:token", token);
+      }
     }
+    return;
   }
 
   function signOut() {

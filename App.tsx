@@ -1,9 +1,9 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StatusBar } from "react-native";
 import { AppLoading } from "expo";
-
 import { NavigationContainer } from "@react-navigation/native";
+import ApolloClient, { PresetConfig } from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 
 import {
@@ -13,10 +13,11 @@ import {
   useFonts,
 } from "@expo-google-fonts/roboto";
 
-import client from "./src/services/client";
+import { AuthProvider } from "./src/contexts/auth";
+
+import { getConfigClient } from "./src/services/client";
 
 import Routes from "./src/routes";
-import { AuthProvider } from "./src/contexts/auth";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -25,9 +26,20 @@ export default function App() {
     Roboto_700Bold,
   });
 
+  const [config, setConfig] = useState<PresetConfig>();
+
+  const client = new ApolloClient(config);
+
   if (!fontsLoaded) {
     return <AppLoading />;
   }
+
+  async function getConfig() {
+    const config = await getConfigClient();
+    setConfig(config);
+  }
+
+  getConfig();
 
   return (
     <ApolloProvider client={client}>

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { ActivityIndicator } from "react-native";
 import {
   Container,
   BackgroundImage,
@@ -27,15 +28,18 @@ const Login: React.FC = () => {
   const [page, setPage] = useState<string>("LOGIN");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
   const { signIn } = useContext(AuthContext);
 
   function handleSignIn() {
+    setLoading(true);
     const credentials = {
       username: email,
       password,
     };
     signIn(credentials);
+    setLoading(false);
   }
 
   return (
@@ -109,8 +113,12 @@ const Login: React.FC = () => {
                 </ForgotPassword>
               </Box>
 
-              <SubmitButton onPress={handleSignIn}>
-                <SubmitText>Entrar</SubmitText>
+              <SubmitButton onPress={handleSignIn} disabled={loading}>
+                {loading ? (
+                  <ActivityIndicator size="small" color="#f3903d" />
+                ) : (
+                  <SubmitText>Entrar</SubmitText>
+                )}
               </SubmitButton>
             </>
           )}

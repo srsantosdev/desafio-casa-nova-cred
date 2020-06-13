@@ -28,18 +28,19 @@ export default function App() {
 
   const [config, setConfig] = useState<PresetConfig>();
 
+  useEffect(() => {
+    async function getConfig() {
+      const config = await getConfigClient();
+      setConfig(config);
+    }
+    getConfig();
+  }, []);
+
   const client = new ApolloClient(config);
 
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-
-  async function getConfig() {
-    const config = await getConfigClient();
-    setConfig(config);
-  }
-
-  getConfig();
 
   return (
     <ApolloProvider client={client}>

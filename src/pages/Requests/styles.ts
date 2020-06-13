@@ -61,3 +61,9 @@ export const Go = styled.View``;
 export const Invisible = styled.View`
   width: 24px;
 `;
+
+export const ContainerLoading = styled.View`
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;

@@ -19,7 +19,7 @@ interface Credentials {
 interface AuthContextData {
   signed: boolean;
   user: object | null;
-  signIn({}: Credentials): Promise<void>;
+  signIn({}: Credentials): Promise<boolean>;
   signOut(): void;
 }
 
@@ -42,7 +42,9 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const [mutate] = useMutation<MutationHookOptions>(auth.request);
+  const [mutate] = useMutation<MutationHookOptions>(auth.request, {
+    errorPolicy: "all",
+  });
 
   useEffect(() => {
     async function loadStorageData() {
@@ -68,16 +70,17 @@ export const AuthProvider: React.FC = ({ children }) => {
         email: data.obterToken.funcionario.email,
         id: Number(data.obterToken.funcionario.id),
       };
+
       const token = data.obterToken.token;
 
       if (token) {
         setUser(user);
-
         await AsyncStorage.setItem("@RNAuth:user", JSON.stringify(user));
         await AsyncStorage.setItem("@RNAuth:token", token.toString());
+        return true;
       }
     }
-    return;
+    return false;
   }
 
   function signOut() {

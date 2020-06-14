@@ -38,14 +38,12 @@ export default function App() {
     getConfig();
   }, []);
 
-  const client = new ApolloClient(config);
-
   if (!fontsLoaded) {
     return <AppLoading />;
   }
 
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={new ApolloClient(config)}>
       <AuthProvider>
         <StatusBar
           barStyle="light-content"

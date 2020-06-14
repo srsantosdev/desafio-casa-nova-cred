@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { ActivityIndicator } from "react-native";
+import Modal from "./../../components/Modal";
 import {
   Container,
   BackgroundImage,
@@ -30,6 +31,8 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
   const { signIn } = useContext(AuthContext);
 
   function handleSignIn() {
@@ -38,93 +41,114 @@ const Login: React.FC = () => {
       username: email,
       password,
     };
-    signIn(credentials);
-    setLoading(false);
+
+    signIn(credentials)
+      .then((response) => {
+        if (!response) {
+          setLoading(false);
+          setOpenModal(true);
+        }
+      })
+      .catch(() => {
+        console.disableYellowBox = true;
+        setLoading(false);
+        setOpenModal(true);
+      });
   }
 
   return (
-    <Container>
-      <BackgroundImage
-        source={require("./../../assets/foto-8.png")}
-        resizeMode="cover"
-      >
-        <Opacity />
-        <Logo source={require("./../../assets/logo-casanova.png")} />
-      </BackgroundImage>
-      <ContainerForm>
-        <ContainerMenu>
-          <Menu>
-            <LoginButton
-              activeOpacity={1}
-              disabled={page === "LOGIN"}
-              onPress={() => setPage("LOGIN")}
-            >
-              <OptionText>Entrar</OptionText>
-            </LoginButton>
-            <RegisterButton
-              activeOpacity={1}
-              disabled={page === "REGISTER"}
-              onPress={() => setPage("REGISTER")}
-            >
-              <OptionText>Cadastre-se</OptionText>
-            </RegisterButton>
-          </Menu>
-        </ContainerMenu>
-        <Form>
-          {page === "REGISTER" ? (
-            <>
-              <Input placeholder="Nome" placeholderTextColor="#707070C6" />
-              <Input placeholder="E-mail" placeholderTextColor="#707070C6" />
-              <Docs>
-                <InputDocs placeholder="RG" placeholderTextColor="#707070C6" />
-                <InputDocs placeholder="CPF" placeholderTextColor="#707070C6" />
-              </Docs>
-              <Input
-                placeholder="Senha"
-                placeholderTextColor="#707070C6"
-                secureTextEntry
-              />
+    <>
+      <Modal open={openModal} onClose={() => setOpenModal(false)} />
 
-              <SubmitButton>
-                <SubmitText>Criar Conta</SubmitText>
-              </SubmitButton>
-            </>
-          ) : (
-            <>
-              <Input
-                autoCapitalize="none"
-                autoCorrect={false}
-                keyboardType="email-address"
-                placeholder="E-mail"
-                placeholderTextColor="#707070C6"
-                onChangeText={(text) => setEmail(text)}
-              />
+      <Container>
+        <BackgroundImage
+          source={require("./../../assets/foto-8.png")}
+          resizeMode="cover"
+        >
+          <Opacity />
+          <Logo source={require("./../../assets/logo-casanova.png")} />
+        </BackgroundImage>
+        <ContainerForm>
+          <ContainerMenu>
+            <Menu>
+              <LoginButton
+                activeOpacity={1}
+                disabled={page === "LOGIN"}
+                onPress={() => setPage("LOGIN")}
+              >
+                <OptionText>Entrar</OptionText>
+              </LoginButton>
+              <RegisterButton
+                activeOpacity={1}
+                disabled={page === "REGISTER"}
+                onPress={() => setPage("REGISTER")}
+              >
+                <OptionText>Cadastre-se</OptionText>
+              </RegisterButton>
+            </Menu>
+          </ContainerMenu>
+          <Form>
+            {page === "REGISTER" ? (
+              <>
+                <Input placeholder="Nome" placeholderTextColor="#707070C6" />
+                <Input placeholder="E-mail" placeholderTextColor="#707070C6" />
+                <Docs>
+                  <InputDocs
+                    placeholder="RG"
+                    placeholderTextColor="#707070C6"
+                  />
+                  <InputDocs
+                    placeholder="CPF"
+                    placeholderTextColor="#707070C6"
+                  />
+                </Docs>
+                <Input
+                  placeholder="Senha"
+                  placeholderTextColor="#707070C6"
+                  secureTextEntry
+                />
 
-              <Input
-                placeholder="Senha"
-                placeholderTextColor="#707070C6"
-                secureTextEntry
-                onChangeText={(text) => setPassword(text)}
-              />
+                <SubmitButton>
+                  <SubmitText>Criar Conta</SubmitText>
+                </SubmitButton>
+              </>
+            ) : (
+              <>
+                <Input
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  keyboardType="email-address"
+                  placeholder="E-mail"
+                  placeholderTextColor="#707070C6"
+                  onChangeText={(text) => setEmail(text)}
+                />
 
-              <Box>
-                <ForgotPassword>
-                  <ForgotPasswordText>Esqueci a senha</ForgotPasswordText>
-                </ForgotPassword>
-              </Box>
+                <Input
+                  placeholder="Senha"
+                  placeholderTextColor="#707070C6"
+                  secureTextEntry
+                  onChangeText={(text) => setPassword(text)}
+                />
 
-              <SubmitButton onPress={handleSignIn} disabled={loading}>
-                {loading ? (
-                  <ActivityIndicator size="small" color="#f3903d" />
-                ) : (
-                  <SubmitText>Entrar</SubmitText>
-                )}
-              </SubmitButton>
-            </>
-          )}
-        </Form>
-      </ContainerForm>
-    </Container>
+                <Box>
+                  <ForgotPassword>
+                    <ForgotPasswordText>Esqueci a senha</ForgotPasswordText>
+                  </ForgotPassword>
+                </Box>
+
+                <SubmitButton onPress={handleSignIn} disabled={loading}>
+                  {loading ? (
+                    <ActivityIndicator size="small" color="#f3903d" />
+                  ) : (
+                    <SubmitText>Entrar</SubmitText>
+                  )}
+                </SubmitButton>
+              </>
+            )}
+          </Form>
+        </ContainerForm>
+      </Container>
+    </>
   );
 };
 

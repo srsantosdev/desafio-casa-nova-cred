@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, DrawerActions } from "@react-navigation/native";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import {
   Container,
@@ -23,12 +24,25 @@ import {
 
 const Home: React.FC = () => {
   const navigation = useNavigation();
+  const [username, setUsername] = useState<string>("");
+
+  useEffect(() => {
+    async function getUsername() {
+      const storagedUser = await AsyncStorage.getItem("@RNAuth:user");
+      const { nome } = JSON.parse(String(storagedUser));
+
+      const capitalizeName = nome.charAt(0).toUpperCase() + nome.slice(1);
+
+      setUsername(capitalizeName);
+    }
+    getUsername();
+  }, []);
 
   return (
     <Container>
       <Header>
         <Invisible />
-        <TitlePage>Olá, Maria!</TitlePage>
+        <TitlePage>Olá, {username}!</TitlePage>
         <OptionButton
           onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
         >

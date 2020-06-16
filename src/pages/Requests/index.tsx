@@ -20,6 +20,9 @@ import {
   ContainerLoading,
 } from "./styles";
 
+import formatDate from "./../../utils/formatDate";
+import formatMoney from "./../../utils/formatMoney";
+
 import { useQuery } from "@apollo/react-hooks";
 import { allLoanRequests } from "./../../services/queries";
 
@@ -88,15 +91,15 @@ const Requests: React.FC = () => {
               <Card
                 key={index}
                 activeOpacity={0.9}
-                onPress={() => navigation.navigate("Details")}
+                onPress={() => navigation.navigate("Details", { node })}
               >
                 <Box>
                   <Title>Data</Title>
-                  <Value>{node.data}</Value>
+                  <Value>{formatDate(String(node.data))}</Value>
                 </Box>
                 <Box>
                   <Title>Valor do Empréstimo</Title>
-                  <Value>R$ {node.valorDesejado}</Value>
+                  <Value>{formatMoney(Number(node.valorDesejado))}</Value>
                 </Box>
                 <Go>
                   <Ionicons

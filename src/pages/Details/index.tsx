@@ -1,6 +1,6 @@
 import React from "react";
 import { Feather, Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import {
   Container,
   Header,
@@ -18,8 +18,30 @@ import {
   OptionText,
 } from "./styles";
 
+import formatDate from "./../../utils/formatDate";
+import formatMoney from "./../../utils/formatMoney";
+import calculateTotalValue from "./../../utils/calculateTotalValue";
+import serializedInstallment from "./../../utils/serializedInstallment";
+import amountInstallment from "./../../utils/amountInstallment";
+
+interface RouteParams {
+  node: {
+    data: String;
+    valorDesejado: Number;
+    taxaAplicada: Number;
+    parcelas: String;
+    cliente: {
+      cpf: String;
+      nome: String;
+    };
+  };
+}
+
 const Details: React.FC = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const { node } = route.params as RouteParams;
 
   return (
     <Container>
@@ -35,19 +57,30 @@ const Details: React.FC = () => {
           <TitleSession>Empréstimo</TitleSession>
           <Data>
             <Title>Data</Title>
-            <Value>00/00/0000</Value>
+            <Value>{formatDate(String(node.data))}</Value>
           </Data>
           <Data>
             <Title>Valor do Empréstimo</Title>
-            <Value>R$ 500,00</Value>
+            <Value>{formatMoney(Number(node.valorDesejado))}</Value>
           </Data>
           <Data>
             <Title>Total a ser pago</Title>
-            <Value>R$ 750,00</Value>
+            <Value>
+              {calculateTotalValue(
+                Number(node.valorDesejado),
+                Number(node.taxaAplicada)
+              )}
+            </Value>
           </Data>
           <Data>
-            <Title>Total Parcelado</Title>
-            <Value>12x de R$ 62,50</Value>
+            <Title>Valor Parcelado</Title>
+            <Value>
+              {amountInstallment(
+                Number(node.valorDesejado),
+                Number(node.taxaAplicada),
+                Number(serializedInstallment(String(node.parcelas)))
+              )}
+            </Value>
           </Data>
         </Session>
 
@@ -55,15 +88,11 @@ const Details: React.FC = () => {
           <TitleSession>Dados do Titular</TitleSession>
           <Data>
             <Title>Nome</Title>
-            <Value>Maria Santos</Value>
+            <Value>{node.cliente.nome}</Value>
           </Data>
           <Data>
             <Title>CPF/CNPJ</Title>
-            <Value>000.000.000-00</Value>
-          </Data>
-          <Data>
-            <Title>Número do Cartão</Title>
-            <Value>**** **** **** 0000</Value>
+            <Value>{node.cliente.cpf}</Value>
           </Data>
         </Session>
 

@@ -8,6 +8,13 @@
   <img src="https://img.shields.io/github/repo-size/srsantosdev/desafio-casa-nova-cred?style=plastic">
   <img src="https://img.shields.io/github/last-commit/srsantosdev/desafio-casa-nova-cred?style=plastic">
   <img src="https://img.shields.io/github/issues/srsantosdev/desafio-casa-nova-cred?style=plastic">
+  <a href="https://drive.google.com/file/d/16vVSYe-vnkChRhv7WPeTlDE29vGagPGx/view">
+    <img src="https://img.shields.io/badge/download-v1.0-orange?style=plastic">
+  </a>
+</p>
+  
+<p align="center">
+  <img src="./casanovacred.gif">
 </p>
 
 ## :computer: Tecnologias
@@ -43,7 +50,7 @@ $ expo start
 # Acesse usando o aplicativo da expo no seu celular.
 ```
 
-Ou **[Clique Aqui](https://drive.google.com/file/d/16vVSYe-vnkChRhv7WPeTlDE29vGagPGx/view)** para fazer o download em formato APK.
+Ou **[CLIQUE AQUI](https://drive.google.com/file/d/16vVSYe-vnkChRhv7WPeTlDE29vGagPGx/view)** para fazer o download em formato APK.
 
 ## 🤔 Como contribuir para o projeto
 

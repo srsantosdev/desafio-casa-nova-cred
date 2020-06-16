@@ -2,27 +2,27 @@
   "expo": {
     "name": "Casa Nova Cred",
     "slug": "casa-nova-cred",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#f3903d"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "com.adss.casanovacred"
+    },
+    "android": {
+      "package": "com.adss.casanovacred"
+    },
+    "sdkVersion": "37.0.0",
+    "description": ""
   }
 }
